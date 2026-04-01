@@ -16,24 +16,32 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.loginId || !credentials?.password) return null;
 
-        const user = await prisma.user.findUnique({
-          where: { loginId: credentials.loginId },
-          include: { role: true, store: true },
-        });
+        try {
+          const user = await prisma.user.findUnique({
+            where: { loginId: credentials.loginId },
+            include: { role: true, store: true },
+          });
 
-        if (!user || user.status !== 'ACTIVE') return null;
+          console.log('[auth] findUnique result:', user ? `found user id=${user.id} status=${user.status}` : 'NOT FOUND');
 
-        const isValid = await bcrypt.compare(credentials.password, user.passwordHash);
-        if (!isValid) return null;
+          if (!user || user.status !== 'ACTIVE') return null;
 
-        return {
-          id: String(user.id),
-          name: user.name,
-          email: user.loginId, // reuse email field as loginId
-          role: user.role.name,
-          storeId: String(user.storeId),
-          avatarUrl: user.avatarUrl ?? null,
-        };
+          const isValid = await bcrypt.compare(credentials.password, user.passwordHash);
+          console.log('[auth] password valid:', isValid);
+          if (!isValid) return null;
+
+          return {
+            id: String(user.id),
+            name: user.name,
+            email: user.loginId,
+            role: user.role.name,
+            storeId: String(user.storeId),
+            avatarUrl: user.avatarUrl ?? null,
+          };
+        } catch (e) {
+          console.error('[auth] ERROR in authorize:', e);
+          return null;
+        }
       },
     }),
   ],
