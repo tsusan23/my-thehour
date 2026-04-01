@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
@@ -43,7 +43,7 @@ interface RawReport {
   submissionStatus: string;
 }
 
-export default function StaffHistoryPage() {
+function StaffHistoryContent() {
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab') || 'monthly';
@@ -277,5 +277,13 @@ export default function StaffHistoryPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function StaffHistoryPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>読み込み中...</div>}>
+      <StaffHistoryContent />
+    </Suspense>
   );
 }

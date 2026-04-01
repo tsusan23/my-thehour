@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
 import DailyReportForm from '@/components/DailyReportForm';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';

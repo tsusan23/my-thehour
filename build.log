@@ -1,0 +1,24 @@
+   ▲ Next.js 15.2.1
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+ ⨯ ESLint: Cannot find module '/Users/Tsukasa/Desktop/clinic-management-app/node_modules/eslint-config-next/core-web-vitals' imported from /Users/Tsukasa/Desktop/clinic-management-app/eslint.config.mjs Did you mean to import "eslint-config-next/core-web-vitals.js"?
+   Collecting page data ...
+   Generating static pages (0/27) ...
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/staff/history". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at a (/Users/Tsukasa/Desktop/clinic-management-app/.next/server/chunks/254.js:3:11587)
+    at f (/Users/Tsukasa/Desktop/clinic-management-app/.next/server/chunks/254.js:5:29951)
+    at m (/Users/Tsukasa/Desktop/clinic-management-app/.next/server/app/staff/history/page.js:1:8017)
+    at nL (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:46773)
+    at nF (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:48548)
+    at nq (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:67434)
+    at nH (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:65009)
+    at nU (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:47125)
+    at nF (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:48594)
+    at nF (/Users/Tsukasa/Desktop/clinic-management-app/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:76:64360)
+Error occurred prerendering page "/staff/history". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /staff/history/page: /staff/history, exiting the build.
+   Generating static pages (6/27) 
+ ⨯ Next.js build worker exited with code: 1 and signal: null
