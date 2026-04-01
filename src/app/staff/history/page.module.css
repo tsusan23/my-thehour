@@ -1,0 +1,210 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding-bottom: 3rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.headerTop h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.tabNav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0px;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--secondary-foreground);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--foreground);
+}
+
+.tabActive {
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+
+.mainContent {
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  margin: 0 0 1rem 0;
+  color: var(--foreground);
+}
+
+/* Spreadsheet-like Table CSS */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  /* Optional: modern scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.sheetTable {
+  width: 100%;
+  border-collapse: separate; /* Required for sticky */
+  border-spacing: 0;
+  min-width: 800px;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+
+.sheetTable th,
+.sheetTable td {
+  padding: 0.75rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.progressSuccess {
+  background: linear-gradient(90deg, var(--success) 0%, #34d399 100%);
+}
+
+.headerActions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.backLink {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+.sheetTable th {
+  background: var(--glass-bg);
+  color: var(--foreground);
+  font-weight: 600;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sheetTable tbody tr {
+  transition: background 0.1s;
+}
+
+.sheetTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Sticky First Column for row headers */
+.sheetTable th:first-child,
+.sheetTable td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--background); /* Theme aware background */
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  text-align: left;
+  font-weight: 600;
+  border-right: 1px solid var(--border);
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+}
+
+/* Make top-left corner above everything */
+.sheetTable th:first-child {
+  z-index: 30;
+}
+
+/* Total Column visual distinction and sticky */
+.sheetTable th:nth-child(2),
+.sheetTable td:nth-child(2) {
+  position: sticky;
+  left: 140px; /* Offset by the exact width of the first column */
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  background: var(--background); /* Theme aware background */
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  font-weight: 700;
+  border-right: 2px solid var(--border); /* thicker border to split total from data */
+}
+
+/* Bring total table header to the front */
+.sheetTable th:nth-child(2) {
+  z-index: 30;
+}
+
+.cellEmpty {
+  color: var(--secondary-foreground);
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .headerTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

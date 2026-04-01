@@ -1,0 +1,39 @@
+import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
+
+// Roles with admin privileges can create staff
+const ADMIN_ROLES = ['マネージャー', '代表'];
+const MANAGER_ROLES = ['店長', 'マネージャー', '代表'];
+
+export default withAuth(
+  function middleware(req) {
+    const { pathname } = req.nextUrl;
+    const token = req.nextauth.token as any;
+    const role: string = token?.role ?? '';
+
+    // /admin/* requires マネージャー or 代表
+    if (pathname.startsWith('/admin')) {
+      if (!ADMIN_ROLES.includes(role)) {
+        return NextResponse.redirect(new URL('/unauthorized', req.url));
+      }
+    }
+
+    // /manager/* requires 店長 or above
+    if (pathname.startsWith('/manager')) {
+      if (!MANAGER_ROLES.includes(role)) {
+        return NextResponse.redirect(new URL('/unauthorized', req.url));
+      }
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token, // Any logged-in user passes base check
+    },
+  }
+);
+
+export const config = {
+  matcher: ['/staff/:path*', '/manager/:path*', '/admin/:path*'],
+};

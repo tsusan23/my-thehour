@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Store {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  isActive          Boolean             @default(true)
+  users             User[]
+  dailyStoreReports DailyStoreReport[]
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String // "新人", "スタッフ", "店長", "マネージャー", "代表"
+  users User[]
+}
+
+model User {
+  id                  Int                  @id @default(autoincrement())
+  storeId             Int
+  roleId              Int
+  name                String
+  loginId             String               @unique
+  passwordHash        String
+  avatarUrl           String?              // Path to uploaded profile picture
+  status              String               @default("ACTIVE") // "ACTIVE", "INACTIVE"
+  store               Store                @relation(fields: [storeId], references: [id])
+  role                Role                 @relation(fields: [roleId], references: [id])
+  dailyStaffReports   DailyStaffReport[]
+  dailyTasks          DailyTask[]
+  dailyActionPlans    DailyActionPlan[]
+  monthlyActionPlans  MonthlyActionPlan[]
+  weeklyActionReviews WeeklyActionReview[]
+}
+
+model DailyStaffReport {
+  id                       Int      @id @default(autoincrement())
+  userId                   Int
+  targetDate               DateTime // YYYY-MM-DD
+  newVisitors              Int      @default(0)
+  newNextReservations      Int      @default(0)
+  newTicketPurchasers      Int      @default(0)
+  newRevenue               Int      @default(0)
+  existingRevenue          Int      @default(0)
+  newDigestionRevenue      Int      @default(0)
+  existingDigestionRevenue Int      @default(0)
+  ticketFinishers          Int      @default(0)
+  continuedUsers           Int      @default(0)
+  totalSessions            Int      @default(0)
+  newSessions              Int      @default(0)
+  existingSessions         Int      @default(0)
+  welfareSessions          Int      @default(0)
+  hasTourAccompaniment     Boolean  @default(false)
+  submissionStatus         String   @default("UNSTARTED") // "UNSTARTED", "DRAFT", "SUBMITTED", "EDITED"
+  user                     User     @relation(fields: [userId], references: [id])
+}
+
+model DailyStoreReport {
+  id               Int      @id @default(autoincrement())
+  storeId          Int
+  targetDate       DateTime // YYYY-MM-DD
+  inquiries        Int      @default(0)
+  newReservations  Int      @default(0)
+  newCancellations Int      @default(0)
+  store            Store    @relation(fields: [storeId], references: [id])
+}
+
+model DailyTask {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  targetDate DateTime // YYYY-MM-DD
+  taskName   String
+  isComplete Boolean  @default(false)
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model DailyActionPlan {
+  id                  Int      @id @default(autoincrement())
+  userId              Int
+  targetDate          DateTime // YYYY-MM-DD
+  plan                String
+  salesGoal           Int      @default(0)
+  newVisitorGoal      Int      @default(0)
+  nextReservationGoal Int      @default(0)
+  ticketGoal          Int      @default(0)
+  closingReflection   String?
+  achievementStatus   String?
+  carriedOver         String?
+  user                User     @relation(fields: [userId], references: [id])
+}
+
+model MonthlyActionPlan {
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  targetMonth       String // YYYY-MM
+  targetKgi         Int
+  targetKpiJson     String  @default("{}")
+  qualitativeGoal   String?
+  quantitativeGoal  String?
+  focusAction       String?
+  status            String  @default("UNSTARTED")
+  user              User    @relation(fields: [userId], references: [id])
+}
+
+model WeeklyActionReview {
+  id                     Int     @id @default(autoincrement())
+  userId                 Int
+  targetWeek             String // YYYY-Www or similar
+  progressSummary        String?
+  achievements           String?
+  challenges             String?
+  kgiProgressComment     String?
+  kpiProgressComment     String?
+  actionPlanAdjustments  String?
+  nextWeekFocus          String?
+  managerComment         String?
+  user                   User    @relation(fields: [userId], references: [id])
+}

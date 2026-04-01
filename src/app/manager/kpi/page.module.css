@@ -1,0 +1,190 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding-bottom: 3rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTop h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.backLink {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.backLink:hover { opacity: 0.7; }
+
+/* Filter Section */
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filterLabel {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--secondary-foreground);
+}
+
+.filterInput, .filterSelect {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.filterInput:focus, .filterSelect:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Edit Form Wrapper */
+.mainContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.targetTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.targetTable th, .targetTable td {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.targetTable th {
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--foreground);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.targetTable tbody tr {
+  transition: background 0.1s;
+}
+
+.targetTable tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.kgiInput {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  width: 160px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.2s;
+}
+
+.kgiInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.currencySymbol {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: var(--secondary-foreground);
+}
+
+.actionFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.message {
+  font-weight: 600;
+  animation: fadeIn 0.2s;
+}
+
+.message.success { color: var(--success); }
+.message.error { color: var(--destructive); }
+
+.saveBtn {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-md);
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.saveBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
